@@ -333,3 +333,67 @@ Each service owns a single responsibility
 No inter-service communication is implemented
 
 APIs are designed to support future integration
+
+
+
+DATABASE MODELS:
+
+CUSTOMER
+
+| Column Name | Data Type | Description                     |
+| ----------- | --------- | ------------------------------- |
+| customer_id | VARCHAR   | Primary key, unique customer ID |
+| name        | VARCHAR   | Customer full name              |
+| email       | VARCHAR   | Customer email                  |
+| mobile      | VARCHAR   | Customer mobile number          |
+| created_at  | TIMESTAMP | Record creation time            |
+
+
+
+WALLET
+
+| Column Name | Data Type | Description                        |
+| ----------- | --------- | ---------------------------------- |
+| wallet_id   | VARCHAR   | Primary key, unique wallet ID      |
+| customer_id | VARCHAR   | Foreign key → CUSTOMER.customer_id |
+| balance     | DECIMAL   | Current wallet balance             |
+| currency    | VARCHAR   | Wallet currency                    |
+| status      | VARCHAR   | ACTIVE / BLOCKED                   |
+| updated_at  | TIMESTAMP | Last balance update                |
+
+
+MERCHANT
+
+| Column Name | Data Type | Description                     |
+| ----------- | --------- | ------------------------------- |
+| merchant_id | VARCHAR   | Primary key, unique merchant ID |
+| name        | VARCHAR   | Merchant name                   |
+| balance     | DECIMAL   | Merchant balance                |
+| status      | VARCHAR   | ACTIVE / INACTIVE               |
+| created_at  | TIMESTAMP | Merchant creation time          |
+
+
+TRANSACTION
+
+| Column Name    | Data Type | Description                        |
+| -------------- | --------- | ---------------------------------- |
+| transaction_id | VARCHAR   | Primary key, unique transaction ID |
+| wallet_id      | VARCHAR   | Foreign key → WALLET.wallet_id     |
+| merchant_id    | VARCHAR   | Foreign key → MERCHANT.merchant_id |
+| amount         | DECIMAL   | Transaction amount                 |
+| currency       | VARCHAR   | Currency                           |
+| status         | VARCHAR   | PENDING / SUCCESS / FAILED         |
+| created_at     | TIMESTAMP | Transaction creation time          |
+
+
+Audit:
+
+| Column Name    | Data Type | Description                                                              |
+| -------------- | --------- | ------------------------------------------------------------------------ |
+| audit_id       | VARCHAR   | Primary key, unique audit record ID                                      |
+| transaction_id | VARCHAR   | Foreign key → TRANSACTION.transaction_id                                 |
+| event_type     | VARCHAR   | PAYMENT_INITIATED / WALLET_DEBITED / MERCHANT_CREDITED / REFUND / FAILED |
+| event_status   | VARCHAR   | SUCCESS / FAILURE                                                        |
+| event_message  | VARCHAR   | Descriptive message                                                      |
+| performed_by   | VARCHAR   | SYSTEM / USER / SERVICE_NAME                                             |
+| created_at     | TIMESTAMP | Event timestamp                                                          |
