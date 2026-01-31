@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 public class DebitWalletRequest {
 
-	
+	int wallet id;
+	String amount;
+	int transactionId;
 
 }
