@@ -11,16 +11,21 @@ public class WalletService {
 	import java.math.BigDecimal;
 	import java.time.LocalDateTime;
 
-	@Entity
-	@Table(name = "wallet")
-	public class Wallet {
+@Entity
+@Table(name = "wallet")
+public class Wallet {
 
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
-	    @Column(name = "customer_id", nullable = false)
-	    private Long customerId;
+	    @ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(
+	        name = "customer_id",
+	        nullable = false,
+	        foreignKey = @ForeignKey(name = "fk_wallet_customer")
+	    )
+	    private Customer customer;
 
 	    @Column(nullable = false, length = 10)
 	    private String currency;

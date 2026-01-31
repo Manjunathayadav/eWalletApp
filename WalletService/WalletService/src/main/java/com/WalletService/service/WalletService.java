@@ -12,7 +12,6 @@ public class WalletService {
 
     private final WalletRepository walletRepository;
 
-    // Constructor Injection
     public WalletService(WalletRepository walletRepository) {
         this.walletRepository = walletRepository;
     }
