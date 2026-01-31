@@ -9,4 +9,28 @@ public class DebitWalletRequest {
 	String amount;
 	int transactionId;
 
+	public int getWalletId() {
+    return walletId;
+}
+
+public void setWalletId(int walletId) {
+    this.walletId = walletId;
+}
+
+public String getAmount() {
+    return amount;
+}
+
+public void setAmount(String amount) {
+    this.amount = amount;
+}
+
+public int getTransactionId() {
+    return transactionId;
+}
+
+public void setTransactionId(int transactionId) {
+    this.transactionId = transactionId;
+}
+
 }
